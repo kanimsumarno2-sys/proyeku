@@ -1,0 +1,268 @@
+/* Reset CSS */
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    color: #fff; /* Teks putih agar kontras dengan background bintang */
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+    padding-bottom: 2rem; /* Untuk footer */
+}
+
+/* -------------------------- ANIMASI BINTANG DI BACKGROUND -------------------------- */
+.bintang-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #0a0a1a; /* Latar malam gelap */
+    z-index: -1; /* Biar berada di balik konten */
+}
+
+/* Buat bintang dengan CSS (tidak perlu gambar) */
+.bintang-background::before,
+.bintang-background::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: 
+        radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+        radial-gradient(2px 2px at 40px 70px, #fff, transparent),
+        radial-gradient(2px 2px at 70px 120px, #fff, transparent),
+        radial-gradient(3px 3px at 120px 40px, #fff, transparent),
+        radial-gradient(2px 2px at 160px 190px, #fff, transparent),
+        radial-gradient(3px 3px at 200px 210px, #fff, transparent),
+        radial-gradient(2px 2px at 240px 170px, #fff, transparent),
+        radial-gradient(3px 3px at 280px 20px, #fff, transparent),
+        radial-gradient(2px 2px at 320px 120px, #fff, transparent),
+        radial-gradient(3px 3px at 360px 190px, #fff, transparent);
+    background-repeat: repeat;
+    background-size: 400px 400px;
+    animation: bintangMelayang 20s linear infinite;
+}
+
+.bintang-background::after {
+    background-size: 300px 300px;
+    animation: bintangMelayang 30s linear infinite reverse; /* Animasi berlawanan arah */
+    opacity: 0.7; /* Lebih redup */
+}
+
+/* Animasi bintang melayang ke bawah dan ke kiri */
+@keyframes bintangMelayang {
+    0% {
+        transform: translate(0, 0);
+    }
+    100% {
+        transform: translate(-400px, 400px);
+    }
+}
+
+/* Animasi bintang berkedip (tambahan di layer lain) */
+.bintang-background span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background: #fff;
+    border-radius: 50%;
+    animation: bintangKedip 2s infinite alternate;
+}
+
+/* Buat banyak bintang berkedip secara acak (dengan JS nanti, tapi CSS sederhana dulu) */
+.bintang-background span:nth-child(1) { top: 10%; left: 20%; animation-duration: 1.5s; }
+.bintang-background span:nth-child(2) { top: 30%; left: 50%; animation-duration: 2.5s; }
+.bintang-background span:nth-child(3) { top: 70%; left: 80%; animation-duration: 1.2s; }
+.bintang-background span:nth-child(4) { top: 50%; left: 30%; animation-duration: 2s; }
+.bintang-background span:nth-child(5) { top: 90%; left: 60%; animation-duration: 1.8s; }
+
+
+/* -------------------------- ANIMASI TEKS DEKAT FOTO & JUDUL -------------------------- */
+/* Animasi teks geser ke kiri-kanan secara perlahan */
+.teks-animasi-geser {
+    position: relative;
+    animation: teksGeser 5s infinite alternate ease-in-out;
+}
+
+@keyframes teksGeser {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(15px); }
+}
+
+/* Animasi teks berkedip (transparansi berubah) */
+.teks-animasi-kedip {
+    animation: teksKedip 3s infinite alternate ease-in-out;
+}
+
+@keyframes teksKedip {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; color: #ffd700; } /* Berubah jadi warna emas saat kedip */
+}
+
+
+/* -------------------------- DESAIN KONTEN LAIN -------------------------- */
+header {
+    background-color: rgba(15, 15, 35, 0.8);
+    padding: 1.5rem 0;
+    text-align: center;
+    margin: 2rem auto;
+    width: 90%;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+section {
+    background-color: rgba(15, 15, 35, 0.8);
+    padding: 2rem;
+    margin: 0 auto 2rem;
+    width: 90%;
+    border-radius: 15px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+section h2 {
+    margin-bottom: 1.5rem;
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+/* Gaya khusus untuk bagian foto guru */
+#wali-kelas {
+    text-align: center; /* Pusatkan konten secara horizontal */
+}
+
+.foto-guru {
+    width: 200px; /* Lebar foto guru */
+    height: 200px; /* Tinggi foto guru (sama dengan lebar untuk 1:1) */
+    margin: 0 auto; /* Pusatkan foto guru secara horizontal */
+    overflow: hidden; /* Pastikan gambar tidak keluar dari kotak */
+    border-radius: 50%; /* Membuat foto menjadi lingkaran */
+}
+
+.foto-guru img {
+    width: 100%; /* Gambar mengisi lebar kotak */
+    height: 100%; /* Gambar mengisi tinggi kotak */
+    object-fit: cover; /* Gambar di-crop agar pas, tanpa distorsi */
+    object-position: center; /* Pusatkan posisi gambar di dalam kotak */
+    border: 2px solid #ffd700; /* Bingkai emas */
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5); /* Efek bayangan */
+}
+
+.foto-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.foto {
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.foto:hover {
+    transform: scale(1.08);
+}
+
+.foto img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover; /* Biar foto tidak melar */
+    border-radius: 10px;
+    border: 2px solid #ffd700; /* Bingkai emas */
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+}
+
+.foto p {
+    margin-top: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+footer {
+    background-color: rgba(15, 15, 35, 0.8);
+    text-align: center;
+    padding: 1rem 0;
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.modal {
+    display: none; /* Sembunyikan modal secara default */
+    position: fixed; /* Tetap di tempat meskipun discroll */
+    z-index: 9999; /* Di atas semua elemen lain */
+    padding-top: 50px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.9); /* Latar belakang gelap transparan */
+}
+
+.modal-konten {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px; /* Maksimal lebar foto besar */
+    max-height: 80vh; /* Maksimal tinggi foto besar (80% layar) */
+    object-fit: contain; /* Jaga proporsi foto tanpa crop */
+    animation-name: zoom;
+    animation-duration: 0.6s;
+}
+
+@keyframes zoom {
+    from {transform: scale(0.1)}
+    to {transform: scale(1)}
+}
+
+.tutup-modal {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.tutup-modal:hover,
+.tutup-modal:focus {
+    color: #ffd700; /* Warna emas saat hover */
+    text-decoration: none;
+}
+
+#caption {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+    text-align: center;
+    color: #ccc;
+    padding: 10px 0;
+    height: 50px;
+    font-size: 1.2rem;
+    margin-top: 10px;
+}
+
+/* Responsif untuk hp (tombol x lebih kecil) */
+@media only screen and (max-width: 700px){
+    .modal-konten {
+        width: 95%;
+    }
+    .tutup-modal {
+        font-size: 30px;
+        top: 15px;
+        right: 25px;
+    }
+}
+
+/* ... kode CSS selanjutnya tetap sama ... */
